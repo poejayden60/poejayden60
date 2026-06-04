@@ -1,20 +1,40 @@
 def read_temperatures(filename):
-    pass
+    with open(filename, 'r') as file:
+        temperatures = []
+        for line in file:
+            try:
+                temp = float(line.strip())
+                temperatures.append(temp)
+            except ValueError:
+                print(f"Warning: '{line.strip()}' is not a valid number and will be skipped.")
+    return temperatures
 
 def calculate_average(values):
-    pass
+    return sum(values) / len(values) if values else 0
 
 def find_maximum(values):
-    pass
+    return max(values)
 
 def find_minimum(values):
-    pass
+    return min(values)
 
 def count_above_threshold(values, threshold):
-    pass
+    count = 0
+    for value in values:
+        if value > threshold:
+            count += 1
+    return count
 
 def print_report(values):
-    pass
+    average = calculate_average(values)
+    maximum = find_maximum(values)
+    minimum = find_minimum(values)
+    above_threshold_count = count_above_threshold(values, 30)  # Example threshold
+
+    print(f"Average Temperature: {average:.2f}")
+    print(f"Maximum Temperature: {maximum:.2f}")
+    print(f"Minimum Temperature: {minimum:.2f}")
+    print(f"Number of Days Above 30°C: {above_threshold_count}")
 
 def main():
     temperatures = read_temperatures("../data/june_temperatures.txt")
