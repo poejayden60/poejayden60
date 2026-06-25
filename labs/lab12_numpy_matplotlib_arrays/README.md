@@ -1,4 +1,4 @@
-# Lab 12: NumPy Arrays and Matplotlib Plotting
+ # Lab 12: NumPy Arrays and Matplotlib Plotting
 
 ## Overview
 

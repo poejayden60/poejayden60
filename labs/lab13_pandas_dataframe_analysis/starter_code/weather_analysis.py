@@ -1,33 +1,59 @@
 import pandas as pd
+
 import matplotlib.pyplot as plt
 
 
 def load_weather_data(filename):
     # TODO: load the data from csv file
     # TODO: return a Pandas dataframe
-    pass
+    df = pd.read_csv(filename)
+    return df
 
 
 def print_summary(df):
     # TODO: print summary statistics
     # TODO: extract the mean temperature and print it
-    pass
+    print(df.describe())
+
+    mhigh = df["highC"].mean()
+    mlow = df["lowC"].mean()
+    print(f' Mean high temperature: {mhigh}')
+    print(f' Mean low temperature: {mlow}')
+
+
+
 
 def add_celsius(df):
     # TODO: add columns for temperatures converted to Celsius
     # TODO: return modified dataframe
-    pass
+    df["highC"] = (df["high"] - 32) * 5 / 9
+    df["lowC"] = (df["low"] - 32) * 5 / 9
+    return df
 
 
 def clean_temperature_range(df, t_low_cut, t_high_cut):
     # TODO: remove days where T_low < t_low_cut or T_high > t_high_cut
     # TODO: return modified dataframe
-    pass
+    df = df[(df["lowC"] >= t_low_cut)]
+    df = df[(df["highC"] <= t_high_cut)]
+
+    return df
 
 
 def plot_temperatures(df):
     # TODO: plot both high and low temperatures on the same graph
-    pass
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(df.index, df["high"], label="High Temperature")
+    plt.plot(df.index, df["low"], label="Low Temperature")
+
+    plt.xlabel("Day")
+    plt.ylabel("Temperature (°F)")
+    plt.title("Daily High and Low Temperatures")
+    plt.legend()
+    plt.grid(True)
+
+    plt.show()
 
 
 def main():
@@ -35,6 +61,7 @@ def main():
     filename = "../data/weather_june.csv"
 
     dataframe = load_weather_data(filename)
+
 
     dataframe = add_celsius(dataframe)
 
